@@ -1,0 +1,24 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <h2 style="text-align:center;">{{sender}}</h2>
+    <h4 style="text-align:center;">Followers: {{followers}}   |   Following: {{following}}</h4>
+    {% if follow %}
+        <h4 style="text-align:center;">
+            <a href="{% url 'unfollow' sender.id %}">Unfollow</a>
+        </h4>
+    {% elif sender != user %}
+        <h4 style="text-align:center;">
+            <a href="{% url 'follow' sender.id %}">Follow</a>
+        </h4>
+    {% endif %}
+    {% for post in posts %}
+    <div style="background-color:aqua; padding:2%;">
+      <small>{{post.timestamp}}</small>
+      <p style="font-style:italic;">Posted by: <a href="{% url 'profile' post.sender.id %}">{{post.sender}}</a></p>
+      <h5>{{post.subject}}</h5>
+      <p>{{post.body}}</p>
+    </div>
+    <br>
+    {% endfor %}
+{% endblock %}
